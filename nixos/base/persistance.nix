@@ -1,0 +1,7 @@
+{
+  flake.nixosModules.base =
+    { lib, ... }:
+    {
+      
+    };
+}
