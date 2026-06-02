@@ -19,6 +19,10 @@
         self.nixosModules.base
         self.nixosModules.general
         self.nixosModules.desktop
+
+        # disko
+        inputs.disko.nixosModules.disko
+        self.diskoConfigurations.host-kvadra-laptop
       ];
 
       # Bootloader.
