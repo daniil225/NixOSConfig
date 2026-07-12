@@ -1,7 +1,0 @@
-{
-  flake.nixosModules.base =
-    { lib, ... }:
-    {
-      
-    };
-}

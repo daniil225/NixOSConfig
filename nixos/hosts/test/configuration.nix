@@ -4,42 +4,50 @@
   ...
 }:
 {
-
   # Entry point for host:
-  flake.nixosConfigurations.kvadra-laptop = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.test = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.host-kvadra-laptop
+      self.nixosModules.host-test
     ];
   };
 
-  flake.nixosModules.host-kvadra-laptop =
-    { pkgs, ... }:
+  flake.nixosModules.host-test =
+    { pkgs, config, ... }:
     {
+
       imports = [
+        self.diskoConfigurations.host-test
         self.nixosModules.base
         self.nixosModules.general
-        self.nixosModules.desktop
-
-        # disko
         inputs.disko.nixosModules.disko
-        self.diskoConfigurations.host-kvadra-laptop
+        self.nixosModules.desktop
       ];
 
-      # Bootloader.
+      preferences = {
+        host.name = "test";
+        network.host.name = "test";
+        time.timeZone = "Asia/Novosibirsk";
+        user.name = "daniil";
+      };
+
+      # Bootloader (from system config)
       boot = {
         loader = {
-          systemd-boot.enable = true;
-          efi.canTouchEfiVariables = true;
+          grub.enable = true;
+          grub.efiSupport = true;
+          grub.efiInstallAsRemovable = true;
+          #systemd-boot.enable = true;
+          #efi.canTouchEfiVariables = true;
         };
       };
 
       networking = {
-        hostName = "kvadra-laptop";
+        hostName = config.preferences.network.host.name;
         networkmanager.enable = true;
       };
 
       services = {
-        #X11 windowing system.
+        # X11 windowing system.
         xserver = {
           enable = true;
           # Enable the GNOME Desktop Environment.
@@ -70,14 +78,20 @@
         rtkit.enable = true;
       };
 
+      # Needs to be decomposed
       environment.systemPackages = with pkgs; [
         wget
         vscode
         vim
         nano
         git
+        jq
+        shfmt
+        gptfdisk # disk formater
+        parted # partirion table update
+        bc
       ];
 
-      system.stateVersion = "25.11"; # Did you read the comment?
+      system.stateVersion = "25.11";
     };
 }

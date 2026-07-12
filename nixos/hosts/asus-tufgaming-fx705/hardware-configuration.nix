@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.host-kvadra-laptop =
+  flake.nixosModules.host-asus-tufgaming-fx705 =
     {
       config,
       lib,
@@ -14,23 +14,21 @@
 
       boot.initrd.availableKernelModules = [
         "xhci_pci"
-        "ahci"
         "nvme"
-        "usbhid"
         "usb_storage"
         "sd_mod"
       ];
       boot.initrd.kernelModules = [ ];
-      boot.kernelModules = [ "kvm-intel" ];
+      boot.kernelModules = [ "kvm-amd" ];
       boot.extraModulePackages = [ ];
 
       fileSystems."/" = {
-        device = "/dev/disk/by-uuid/d868d256-6fa1-47ea-a8a9-5c1df38d1698";
+        device = "/dev/disk/by-uuid/75c55ad4-9116-4371-8797-bc98c5b58da4";
         fsType = "ext4";
       };
 
       fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/5A62-23B8";
+        device = "/dev/disk/by-uuid/0997-9ADB";
         fsType = "vfat";
         options = [
           "fmask=0077"
@@ -41,7 +39,6 @@
       swapDevices = [ ];
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-      hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     };
 }
