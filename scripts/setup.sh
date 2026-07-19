@@ -160,6 +160,8 @@ main() {
 
     # Step 6: Install the system
     sudo nixos-install --flake "${SETUP_NIXOS_DIR}#${SETUP_PREFERENCES[host.name]}"
+
+    # Step 7: cp NixOS config + git repository initialization. 
 }
 
 # ==============================================================================

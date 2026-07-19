@@ -214,7 +214,7 @@ generate_host_config() {
           grub.efiSupport = true;
           grub.efiInstallAsRemovable = true;
           grub.useOSProber = true;
-          grub.device = ["nodev"];
+          grub.devices = ["nodev"];
           #systemd-boot.enable = true;
           #efi.canTouchEfiVariables = true;
         };

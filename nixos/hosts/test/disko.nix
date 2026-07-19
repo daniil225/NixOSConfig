@@ -17,8 +17,8 @@
                   mountpoint = "/boot";
                 };
               };
-              root = {
-                size = "100%";
+              root2 = {
+                size = "11.9G";
                 content = {
                   type = "filesystem";
                   format = "ext4";

@@ -10,6 +10,7 @@
         self.nixosModules.firefox
         self.nixosModules.telegram
         self.nixosModules.google
+        self.nixosModules.vscode
       ];
     };
 }

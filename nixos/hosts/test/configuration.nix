@@ -36,6 +36,8 @@
           grub.enable = true;
           grub.efiSupport = true;
           grub.efiInstallAsRemovable = true;
+          grub.useOSProber = true;
+          grub.devices = [ "nodev" ];
           #systemd-boot.enable = true;
           #efi.canTouchEfiVariables = true;
         };

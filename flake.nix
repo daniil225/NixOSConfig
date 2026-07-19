@@ -5,6 +5,11 @@
     # The framework I use to structure the flake, module imports are automatic via custom function below
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

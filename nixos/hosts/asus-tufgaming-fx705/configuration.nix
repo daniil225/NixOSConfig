@@ -19,12 +19,32 @@
         self.nixosModules.base
         self.nixosModules.general
         self.nixosModules.desktop
+
+        # home-manager like a NixOSModule
+        inputs.home-manager.nixosModules.home-manager
       ];
 
       preferences = {
         user.name = "daniil";
         host.name = "asus-tufgaming-fx705";
         network.host.name = "daniil";
+      };
+
+      # Настройки самого модуля home-manager
+      home-manager = {
+        useUserPackages = true; # пакеты HM ставятся в профиль пользователя, а не системы
+        useGlobalPkgs = true; # использовать pkgs из NixOS (экономит место)
+        backupFileExtension = "backup"; # что делать с конфликтующими конфигами
+        extraSpecialArgs = {
+          inherit inputs self;
+          userName = config.preferences.user.name;
+        };
+
+        users.${config.preferences.user.name} = {
+          imports = [
+            self.homeModules.base
+          ];
+        };
       };
 
       # Bootloader. from system config
@@ -75,14 +95,13 @@
       # Nead to be decompose
       environment.systemPackages = with pkgs; [
         wget
-        vscode
         vim
         nano
         git
-        dialog # for interactive menu in console 
-        google-chrome
+        dialog # for interactive menu in console
         jq
         gcc
+        tree
         shfmt
         gptfdisk # disk formater
         parted # partirion table update
