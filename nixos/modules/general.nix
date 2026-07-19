@@ -1,4 +1,4 @@
-{self,...}:
+{ self, inputs, ... }:
 {
   flake.nixosModules.general =
     {
@@ -8,8 +8,18 @@
     }:
     {
       imports = [
-        self.nixosModules.nix
+        inputs.nix-index-database.nixosModules.nix-index
       ];
+
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      nixpkgs.config.allowUnfree = true;
+
+      programs.nix-ld.enable = true;
+      programs.nix-index-database.comma.enable = true;
 
       # Define a user account. Don't forget to set a password with ‘passwd’.
       users.users.${config.preferences.user.name} = {
@@ -20,16 +30,15 @@
           "wheel"
         ];
         initialPassword = "0000";
-        # Set custop console interpritator that determine in custom 
-        # packages in environment variabel 
+        # Set custop console interpritator that determine in custom
+        # packages in environment variabel
         #shell = self.packages.${pkgs.system}.environment;
       };
 
-      # Set your time zone.
       time = {
         timeZone = config.preferences.time.timeZone;
       };
-      # Select internationalisation properties.
+
       i18n = {
         defaultLocale = "en_US.UTF-8";
         extraLocaleSettings = {
@@ -43,6 +52,6 @@
           LC_TELEPHONE = "ru_RU.UTF-8";
           LC_TIME = "ru_RU.UTF-8";
         };
+      };
     };
-  };
 }

@@ -1,7 +1,7 @@
-{self,...}:
+{ self, ... }:
 {
-  flake.nixosModules.cli = 
-    {pkgs,...}:
+  flake.nixosModules.cli =
+    { pkgs, ... }:
     {
       imports = [
         self.nixosModules.base-cli

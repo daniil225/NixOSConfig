@@ -1,7 +1,7 @@
-{self,...}:
+{ self, ... }:
 {
-  flake.nixosModules.base-cli = 
-    {pkgs,...}:
+  flake.nixosModules.base-cli =
+    { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
         wget
@@ -12,6 +12,7 @@
         tree
         bc
         gcc
+        killall
       ];
     };
 }

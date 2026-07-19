@@ -19,6 +19,7 @@
         self.nixosModules.base
         self.nixosModules.general
         self.nixosModules.desktop
+        self.nixosModules.devtools
         self.nixosModules.cli
 
         # home-manager like a NixOSModule
@@ -44,6 +45,8 @@
         users.${config.preferences.user.name} = {
           imports = [
             self.homeModules.base
+            self.homeModules.nix-tooling
+            self.homeModules.vscode
           ];
         };
       };
