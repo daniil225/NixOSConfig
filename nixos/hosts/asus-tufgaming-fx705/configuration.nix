@@ -19,6 +19,7 @@
         self.nixosModules.base
         self.nixosModules.general
         self.nixosModules.desktop
+        self.nixosModules.cli
 
         # home-manager like a NixOSModule
         inputs.home-manager.nixosModules.home-manager
@@ -91,22 +92,6 @@
       security = {
         rtkit.enable = true;
       };
-
-      # Nead to be decompose
-      environment.systemPackages = with pkgs; [
-        wget
-        vim
-        nano
-        git
-        dialog # for interactive menu in console
-        jq
-        gcc
-        tree
-        shfmt
-        gptfdisk # disk formater
-        parted # partirion table update
-        bc
-      ];
 
       system.stateVersion = "25.11";
     };
