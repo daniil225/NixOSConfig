@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-
   home.packages = with pkgs; [
     nil # LSP для Nix (быстрый)
     nixd # LSP для Nix (умный, понимает сложные конструкции)
