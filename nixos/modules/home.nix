@@ -1,8 +1,12 @@
-{ ... }:
+{ lib, ... }:
+let
+  homeDir = ./home;
+in
 {
-  flake.homeModules = {
-    base = import ./home/base.nix;
-    vscode = import ./home/devtools/vscode.nix;
-    nix-tooling = import ./home/nix-tooling.nix;
-  };
+  flake.homeModules = lib.listToAttrs (
+    map (path: {
+      name = lib.removeSuffix ".nix" (baseNameOf (toString path));
+      value = import path;
+    }) (lib.filter (p: lib.hasSuffix ".nix" (toString p)) (lib.filesystem.listFilesRecursive homeDir))
+  );
 }
