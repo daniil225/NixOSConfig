@@ -12,7 +12,7 @@
   };
 
   flake.nixosModules.host-asus-tufgaming-fx705 =
-    { pkgs, config, ... }:
+    { config, ... }:
     {
 
       imports = [
@@ -30,6 +30,7 @@
         user.name = "daniil";
         host.name = "asus-tufgaming-fx705";
         network.host.name = "daniil";
+        flake-base-dir = "/home/daniil/NixOSConfig";
       };
 
       # Настройки самого модуля home-manager
@@ -40,6 +41,8 @@
         extraSpecialArgs = {
           inherit inputs self;
           userName = config.preferences.user.name;
+          flakeBaseDir = config.preferences.flake-base-dir;
+          flakeNixosConfigurations = config.preferences.host.name;
         };
 
         users.${config.preferences.user.name} = {

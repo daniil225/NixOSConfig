@@ -1,37 +1,57 @@
-{ pkgs, ... }:
 {
+  pkgs,
+  flakeBaseDir,
+  flakeNixosConfigurations,
+  ...
+}:
+{
+
   programs.vscode = {
     enable = true;
+    mutableExtensionsDir = false;
 
-    extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
-    ];
+    profiles = {
+      "NixOSConfig" = {
 
-    userSettings = {
-      # Включаем Language Server
-      "nix.enableLanguageServer" = true;
-      # Используем nixd (умнее, понимает ваш importTree)
-      "nix.serverPath" = "nil";
+        extensions = with pkgs.vscode-extensions; [
+          jnoortheen.nix-ide
+        ];
 
-      # Форматирование через nixfmt
-      "nix.serverSettings" = {
-        "nil" = {
-          "formatting" = {
-            "command" = [ "nixfmt" ];
+        userSettings = {
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+          "nix.env.enable" = false;
+
+          "[nix]" = {
+            "editor.defaultFormatter" = "jnoortheen.nix-ide";
+            "editor.formatOnSave" = true;
+          };
+
+          "files.associations" = {
+            "*.nix" = "nix";
+          };
+
+          "nix.serverSettings" = {
+            "nixd" = {
+              "nixpkgs" = {
+                "expr" = "import (builtins.getFlake \"${flakeBaseDir}\").inputs.nixpkgs { }";
+              };
+              "formatting" = {
+                "command" = [ "nixfmt" ];
+              };
+              "options" = {
+                "nixos" = {
+                  "expr" =
+                    "(builtins.getFlake \"${flakeBaseDir}\").nixosConfigurations.${flakeNixosConfigurations}.options";
+                };
+                "home-manager" = {
+                  "expr" =
+                    "(builtins.getFlake (builtins.toString \"${flakeBaseDir}\")).nixosConfigurations.${flakeNixosConfigurations}.options.home-manager.users.type.getSubOptions []";
+                };
+              };
+            };
           };
         };
-      };
-
-      "nix.env.enable" = false;
-      # Форматирование при сохранении
-      "[nix]" = {
-        "editor.defaultFormatter" = "jnoortheen.nix-ide";
-        "editor.formatOnSave" = true;
-      };
-
-      # Ассоциации файлов
-      "files.associations" = {
-        "*.nix" = "nix";
       };
     };
   };
