@@ -3,7 +3,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # The framework I use to structure the flake, module imports are automatic via custom function below
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -12,6 +15,11 @@
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

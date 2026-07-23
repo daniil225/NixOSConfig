@@ -1,8 +1,8 @@
 { inputs, ... }:
 {
-  # imports = [
-  #   inputs.wrapper-modules.flakeModules.wrappers
-  # ];
+  imports = [
+    inputs.wrapper-modules.flakeModules.wrappers
+  ];
 
   # options = {
   #   flake = inputs.flake-parts.lib.mkSubmoduleOptions {
