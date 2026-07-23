@@ -3,6 +3,7 @@
   flake.nixosModules.base-cli =
     { pkgs, ... }:
     {
+
       environment.systemPackages = with pkgs; [
         wget
         nano
@@ -13,6 +14,8 @@
         bc
         gcc
         killall
+        curl
+        wlr-randr
       ];
     };
 }

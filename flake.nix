@@ -3,7 +3,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # The framework I use to structure the flake, module imports are automatic via custom function below
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -12,6 +15,11 @@
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -28,11 +36,16 @@
       inherit (inputs.nixpkgs) lib;
       inherit (lib.fileset) toList fileFilter;
       isNixModule = file: file.hasExt "nix" && file.name != "flake.nix" && !lib.hasPrefix "_" file.name;
-      excludeHome = pathList: builtins.filter (p: !lib.hasInfix "/modules/home/" (toString p)) pathList;
 
+      excludeHome = pathList: builtins.filter (p: !lib.hasInfix "/modules/home/" (toString p)) pathList;
       importTree = path: excludeHome (toList (fileFilter isNixModule path));
+
+      rootPath = ./.;
+      hostName = lib.trim (builtins.readFile (rootPath + "/active-host"));
+      monitorConfigPath = rootPath + "/nixos/hosts/${hostName}/_niri-monitor-config.nix";
+      additionalHostConfig = [ monitorConfigPath ];
 
       mkFlake = inputs.flake-parts.lib.mkFlake { inherit inputs; };
     in
-    mkFlake { imports = importTree ./.; };
+    mkFlake { imports = importTree ./. ++ additionalHostConfig; };
 }
