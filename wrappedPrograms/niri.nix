@@ -286,9 +286,9 @@
           noctaliaExe
         ];
 
-        spawn-sh-at-startup = [
-          "${pkgs.swaybg}/bin/swaybg -i ${self.wallpaper} -m fill"
-        ];
+        # spawn-sh-at-startup = [
+        #   "${pkgs.swaybg}/bin/swaybg -i ${self.wallpaper} -m fill"
+        # ];
 
       };
     };
