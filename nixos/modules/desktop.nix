@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.nixosModules.desktop =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     let
       selfpkgs = self.packages."${pkgs.stdenv.hostPlatform.system}";
     in
@@ -47,15 +47,30 @@
       };
 
       services.upower.enable = true;
+      services.xserver.videoDrivers = [ "nvidia" ];
       hardware = {
         enableAllFirmware = true;
 
         bluetooth.enable = true;
         bluetooth.powerOnBoot = true;
 
-        opengl = {
+        graphics = {
           enable = true;
-          driSupport32Bit = true;
+        };
+
+        nvidia = {
+          modesetting.enable = true;
+          open = false;
+          powerManagement.enable = false;
+          nvidiaSettings = true;
+          package = config.boot.kernelPackages.nvidiaPackages.stable;
+          prime = {
+            sync.enable = true;
+
+            # Ваши Bus ID из lspci
+            amdgpuBusId = "PCI:5:0:0";
+            nvidiaBusId = "PCI:1:0:0";
+          };
         };
       };
 

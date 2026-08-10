@@ -8,6 +8,9 @@
         pciutils
         mesa-demos
         vulkan-tools
+        htop
+        btop
+        nvtopPackages.full
       ];
     };
 }

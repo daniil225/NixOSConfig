@@ -8,7 +8,6 @@
 
   # Здесь всё, что раньше было в homeModules.user-daniil:
   home.packages = with pkgs; [
-    htop
-    btop
+
   ];
 }
