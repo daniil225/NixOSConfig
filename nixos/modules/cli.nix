@@ -7,6 +7,7 @@
         self.nixosModules.base-cli
         self.nixosModules.disk-cli
         self.nixosModules.diagnostic-cli
+        self.nixosModules.dev-cli
       ];
     };
 }

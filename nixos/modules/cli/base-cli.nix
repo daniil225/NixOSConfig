@@ -3,7 +3,6 @@
   flake.nixosModules.base-cli =
     { pkgs, ... }:
     {
-
       environment.systemPackages = with pkgs; [
         wget
         nano
@@ -12,7 +11,6 @@
         jq
         tree
         bc
-        gcc
         killall
         curl
       ];
