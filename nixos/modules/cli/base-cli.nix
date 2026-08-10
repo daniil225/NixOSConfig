@@ -1,4 +1,4 @@
-{ self, ... }:
+{ ... }:
 {
   flake.nixosModules.base-cli =
     { pkgs, ... }:
@@ -15,7 +15,6 @@
         gcc
         killall
         curl
-        wlr-randr
       ];
     };
 }

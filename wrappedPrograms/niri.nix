@@ -26,60 +26,34 @@
 
       config.settings = {
 
-        # Prefer server-side decorations (SSD) over client-side decorations (CSD)
-        # CSD = windows draw their own title bars (e.g., Firefox, some GTK4 apps)
-        # SSD = the window manager draws the title bar
-        # Setting this to true makes Niri draw borders/titlebars for apps that would otherwise draw their own
         prefer-no-csd = _: { };
-
-        # ============================================================================
-        # MONITOR CONFIGURATION
-        # ============================================================================
-        # Each monitor is identified by its connector name (from `niri msg outputs` or `wlr-randr`)
-        # Coordinates are in logical pixels (after scaling)
 
         outputs = {
 
-          # --- Laptop Built-in Monitor ---
           "${self.monitors.laptop.name}" = {
-            # Display resolution and refresh rate
-            # Found via: wlr-randr or wlr-randr
             mode = self.monitors.laptop.mode;
-
-            # Alternative: can also be the default focus target
             focus-at-startup = _: { };
-
             scale = self.monitors.laptop.scale;
 
-            # Position: placed immediately to the right of HDMI-A-1
-            # Since HDMI-A-1 is 2560 pixels wide, this monitor starts at x=2560
-            # This creates a seamless transition for the mouse cursor
             position = _: {
               props = {
-                x = self.monitors.laptop.position.x; # Right edge of HDMI-A-1 (2560 pixels wide)
-                y = self.monitors.laptop.position.y; # Aligned at the top with the external monitor
+                x = self.monitors.laptop.position.x;
+                y = self.monitors.laptop.position.y;
               };
             };
           };
         }
         // lib.optionalAttrs self.monitors.external.enable {
-          # --- External Monitor ---
           "${self.monitors.external.name}" = {
-            # Display resolution and refresh rate
-            # Format: "WIDTHxHEIGHT@REFRESH_RATE"
-            # Get exact values from: wlr-randr
             mode = self.monitors.external.mode;
-
-            # Make this monitor the default focus target when Niri starts
-            # If multiple monitors have this set, the first one in the config wins
             focus-at-startup = _: { };
 
             scale = self.monitors.external.scale;
 
             position = _: {
               props = {
-                x = self.monitors.external.position.x; # Left edge of the virtual desktop
-                y = self.monitors.external.position.y; # Top edge
+                x = self.monitors.external.position.x;
+                y = self.monitors.external.position.y;
               };
             };
           };
@@ -105,58 +79,36 @@
           # WINDOW MANAGEMENT
           # ============================================================================
 
-          # Close the currently focused window
           "Mod+Q".close-window = _: { };
-
-          # Maximize the current column to full screen (hides other columns)
           "Mod+F".maximize-column = _: { };
-
-          # Toggle fullscreen mode for the focused window (no borders)
           "Mod+G".fullscreen-window = _: { };
-
-          # Toggle floating mode (window becomes draggable with mouse)
           "Mod+Shift+F".toggle-window-floating = _: { };
-
-          # Center the current column on the screen
           "Mod+C".center-column = _: { };
 
           # ============================================================================
           # VIM-STYLE NAVIGATION (HJKL)
           # ============================================================================
 
-          # --- Focus navigation ---
-          # H/L: move focus between columns (left/right)
           "Mod+H".focus-column-left = _: { };
           "Mod+L".focus-column-right = _: { };
-
-          # K/J: move focus between windows within the same column (up/down)
           "Mod+K".focus-window-up = _: { };
           "Mod+J".focus-window-down = _: { };
 
           # --- Move columns and windows around ---
-          # Swap the current column with the one to the left/right
           "Mod+Alt+H".move-column-left = _: { };
           "Mod+Alt+L".move-column-right = _: { };
-
-          # Swap the current window with the one above/below in the same column
           "Mod+Alt+K".move-window-up = _: { };
           "Mod+Alt+J".move-window-down = _: { };
 
           # --- Resize ---
-          # Change the width of the current column by 5%
           "Mod+Ctrl+H".set-column-width = "-5%";
           "Mod+Ctrl+L".set-column-width = "+5%";
-
-          # Change the height of the current window within its column by 5%
           "Mod+Ctrl+J".set-window-height = "-5%";
           "Mod+Ctrl+K".set-window-height = "+5%";
 
           # --- Switch between monitors and workspaces ---
-          # Move focus to the adjacent monitor (left/right)
           "Mod+Shift+H".focus-monitor-left = _: { };
           "Mod+Shift+L".focus-monitor-right = _: { };
-
-          # Switch to the workspace above/below (vertical navigation in Niri)
           "Mod+Shift+K".focus-workspace-up = _: { };
           "Mod+Shift+J".focus-workspace-down = _: { };
 
@@ -207,7 +159,6 @@
           "Mod+0".focus-workspace = "w9"; # 0 = the 10th workspace
 
           # --- Move the focused column to another workspace ---
-          # The column will disappear from the current screen and appear on the target workspace
           "Mod+Shift+1".move-column-to-workspace = "w0";
           "Mod+Shift+2".move-column-to-workspace = "w1";
           "Mod+Shift+3".move-column-to-workspace = "w2";
