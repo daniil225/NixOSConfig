@@ -633,12 +633,15 @@ disk_prepare_for_nixos_install() {
 
     if [[ "$install_mode" == "$DISK_MODE_CLEAR" ]]; then
         log_warning "Destructive action: Disk '${target_disk}' will be completely wiped, partitioned, and formatted. Afterwards, it will be mounted at '/mnt'."
-        sudo nix run github:nix-community/disko -- --mode destroy,format,mount /tmp/disko.nix
+        sudo env NIX_CONFIG='experimental-features = nix-command flakes' \
+            nix run github:nix-community/disko -- \
+            --mode destroy,format,mount /tmp/disko.nix
         
     elif [[ "$install_mode" == "$DISK_MODE_NEIGHBOR" ]]; then
         log_info "Non-destructive mode: Existing partitions on '${target_disk}' will be mounted at '/mnt' without any formatting."
-        sudo nix run github:nix-community/disko -- --mode mount /tmp/disko.nix
-        
+        sudo env NIX_CONFIG='experimental-features = nix-command flakes' \
+            nix run github:nix-community/disko -- \
+            --mode mount /tmp/disko.nix 
     else
         # Added expected values to the error message for easier debugging
         log_error "Unknown installation mode: '${install_mode}'. Expected either '${DISK_MODE_CLEAR}' or '${DISK_MODE_NEIGHBOR}'."

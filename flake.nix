@@ -23,10 +23,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # disko = {
-    #   url = "github:nix-community/disko";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    disko = {
+       url = "github:nix-community/disko";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
   };
 
   # Import all .nix files from current directory except flake.nix recursively

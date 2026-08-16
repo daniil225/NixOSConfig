@@ -64,13 +64,13 @@
           powerManagement.enable = false;
           nvidiaSettings = true;
           package = config.boot.kernelPackages.nvidiaPackages.stable;
-          prime = {
-            sync.enable = true;
+          #prime = {
+          #  sync.enable = true;
 
             # Ваши Bus ID из lspci
-            amdgpuBusId = "PCI:5:0:0";
-            nvidiaBusId = "PCI:1:0:0";
-          };
+            #amdgpuBusId = "PCI:5:0:0";
+            #nvidiaBusId = "PCI:1:0:0";
+          #};
         };
       };
 
