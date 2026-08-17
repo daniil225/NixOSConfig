@@ -5,13 +5,13 @@
 }:
 {
   # Entry point for host:
-  flake.nixosConfigurations.hp-omen = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.hp-omen-gaming-16-am0xxx = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.host-hp-omen
+      self.nixosModules.host-hp-omen-gaming-16-am0xxx
     ];
   };
 
-  flake.nixosModules.host-hp-omen =
+  flake.nixosModules.host-hp-omen-gaming-16-am0xxx =
     { config, ... }:
     {
 
@@ -21,15 +21,15 @@
         self.nixosModules.desktop
         self.nixosModules.devtools
         self.nixosModules.cli
-        self.diskoConfigurations.host-hp-omen
+        self.diskoConfigurations.host-hp-omen-gaming-16-am0xxx
 
         inputs.disko.nixosModules.disko
         inputs.home-manager.nixosModules.home-manager
       ];
 
       preferences = {
-        host.name = "hp-omen";
-        network.host.name = "hp-omen";
+        host.name = "hp-omen-gaming-16-am0xxx";
+        network.host.name = "hp-omen-gaming-16-am0xxx";
         user.name = "daniil";
         flake-base-dir = "/home/daniil/NixOSConfig";
         cpu = {

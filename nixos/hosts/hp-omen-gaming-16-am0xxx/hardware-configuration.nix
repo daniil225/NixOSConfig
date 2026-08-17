@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.host-hp-omen =
+  flake.nixosModules.host-hp-omen-gaming-16-am0xxx =
     {
       config,
       lib,

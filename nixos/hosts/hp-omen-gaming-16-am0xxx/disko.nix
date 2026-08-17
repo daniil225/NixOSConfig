@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.host-hp-omen = {
+  flake.diskoConfigurations.host-hp-omen-gaming-16-am0xxx = {
     disko.devices = {
       disk = {
         main = {
