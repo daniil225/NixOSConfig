@@ -31,6 +31,47 @@
         default = "Asia/Novosibirsk";
         description = "Time zone for this machine.";
       };
+
+      cpu.vendor = lib.mkOption {
+        type = lib.types.enum [
+          "intel"
+          "amd"
+        ];
+        default = throw "cpu.vendor must be explicitly set in host configuration";
+        description = "Vendor of integrated GPU (affects BusID attribute name)";
+      };
+
+      cpu.iGpuBusId = lib.mkOption {
+        type = lib.types.str;
+        default = throw "cpu.iGpuBusId must be explicitly set in host configuration";
+        description = "PCI Bus ID of integrated GPU. Run: lspci | grep -i vga";
+      };
+
+      nvidia.enable = lib.mkEnableOption "Nvidia dGPU support with PRIME offload";
+
+      nvidia.busId = lib.mkOption {
+        type = lib.types.str;
+        default = throw "nvidia.busId must be explicitly set in host configuration";
+        description = "PCI Bus ID of discrete Nvidia GPU. Run: lspci | grep -i vga";
+      };
+
+      nvidia.generation = lib.mkOption {
+        type = lib.types.str;
+        default = throw "nvidia.generation must be explicitly set in host configuration";
+        description = ''
+          GPU generation for open driver selection.
+          - older (GTX 10xx and below): force proprietary driver
+          - turing+ (RTX 20xx/30xx/40xx/50xx): can use open driver
+          Note: RTX 5070 is Blackwell. Open driver is recommended.
+        '';
+      };
+
+      nvidia.forceOpenSource = lib.mkOption {
+        type = lib.types.bool;
+        default = throw "nvidia.forceOpenSource must be explicitly set in host configuration";
+        description = "Force proprietary driver even if generation supports open";
+      };
+
     };
   };
 }

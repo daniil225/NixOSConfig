@@ -12,5 +12,7 @@
         btop
         nvtopPackages.full
       ];
+
+      # if CPU vendor == AMD add lact
     };
 }

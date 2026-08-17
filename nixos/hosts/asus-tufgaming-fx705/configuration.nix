@@ -31,6 +31,16 @@
         host.name = "asus-tufgaming-fx705";
         network.host.name = "daniil";
         flake-base-dir = "/home/daniil/NixOSConfig";
+        cpu = {
+          vendor = "amd";
+          iGpuBusId = "PCI:5:0:0"; # lspci | grep -i vga
+        };
+        nvidia = {
+          enable = true;
+          busId = "PCI:1:0:0"; # lspci | grep -i vga
+          generation = "GeForce RTX 1660 Ti / Mobile";
+          forceOpenSource = true;
+        };
       };
 
       # Настройки самого модуля home-manager

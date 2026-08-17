@@ -12,7 +12,7 @@
   };
 
   flake.nixosModules.host-hp-omen =
-    { pkgs, config, ... }:
+    { config, ... }:
     {
 
       imports = [
@@ -32,6 +32,16 @@
         network.host.name = "hp-omen";
         user.name = "daniil";
         flake-base-dir = "/home/daniil/NixOSConfig";
+        cpu = {
+          vendor = "intel";
+          iGpuBusId = "PCI:0:2:0"; # lspci | grep -i vga
+        };
+        nvidia = {
+          enable = true;
+          busId = "PCI:1:0:0"; # lspci | grep -i vga
+          generation = "GeForce RTX 5070 Max-Q / Mobile";
+          forceOpenSource = true;
+        };
       };
 
       # Настройки самого модуля home-manager
