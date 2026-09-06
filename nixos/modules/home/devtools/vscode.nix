@@ -10,6 +10,16 @@
     enable = true;
     mutableExtensionsDir = false;
 
+    extensions = with pkgs.vscode-extensions; [
+      streetsidesoftware.code-spell-checker
+      eamodio.gitlens
+    ];
+
+    userSettings = {
+      "cSpell.enabled" = true;
+      "cSpell.language" = "en,ru";
+    };
+
     profiles = {
       "NixOSConfig" = {
 
@@ -53,6 +63,8 @@
           };
         };
       };
+
+      "EmbeddedModm" = { };
     };
   };
 }
