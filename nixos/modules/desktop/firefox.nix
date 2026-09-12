@@ -1,11 +1,12 @@
 {
-  flake.nixosModules.firefox = 
-    { pkgs, ...}:
+  flake.nixosModules.firefox =
+    { pkgs, ... }:
     {
       environment.systemPackages = [
         pkgs.firefox
       ];
-      
-      programs.firefox.enable = true;
+
+      #programs.firefox.enable = true;
+
     };
 }

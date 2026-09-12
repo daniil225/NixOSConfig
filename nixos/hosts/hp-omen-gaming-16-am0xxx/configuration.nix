@@ -61,6 +61,7 @@
             self.homeModules.base
             self.homeModules.nix-tooling
             self.homeModules.vscode
+            self.homeModules.firefox
           ];
         };
       };
