@@ -21,6 +21,8 @@
         self.nixosModules.desktop
         self.nixosModules.devtools
         self.nixosModules.cli
+        self.nixosModules.virtualisation
+
         self.diskoConfigurations.host-hp-omen-gaming-16-am0xxx
 
         inputs.disko.nixosModules.disko
