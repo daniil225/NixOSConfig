@@ -21,6 +21,7 @@
         self.nixosModules.desktop
         self.nixosModules.devtools
         self.nixosModules.cli
+        self.nixosModules.virtualisation
 
         # home-manager like a NixOSModule
         inputs.home-manager.nixosModules.home-manager
